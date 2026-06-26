@@ -28,11 +28,10 @@
         <div class="logo">MyWebsite<span>.</span></div>
         <div class="nav-wrapper">
             <nav class="nav">
-                <a href="#">ABOUT</a>
-                <a href="#">EXPERIENCE</a>
-                <a href="#">CONTACT</a>
+                <a href="#about">ABOUT</a>
+                <a href="#projects">EXPERIENCE</a>
+                <a href="#contact">CONTACT</a>
             </nav>
-            <a href="#" class="btn-inquire mobile-only">INQUIRE</a>
         </div>
         <div class="header-controls">
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
@@ -54,7 +53,6 @@
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
             </button>
-            <a href="#" class="btn-inquire desktop-only">INQUIRE</a>
             <button class="hamburger" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
@@ -77,7 +75,7 @@
 
         <!-- Image Section at Bottom -->
         <section class="hero-image">
-            <img src="profile.jpg" alt="Abstract and elegant shadow on concrete">
+            <img src="assets/images/profile.jpg" alt="Abstract and elegant shadow on concrete">
         </section>
 
         <!-- Statistics Section -->
@@ -101,11 +99,11 @@
         </section>
 
         <!-- Profile Biography Section -->
-        <section class="profile-section">
+        <section class="profile-section" id="about">
             <div class="profile-card">
                 <div class="profile-visual">
                     <div class="profile-frame">
-                        <img src="cat code.jpg" alt="Profile of F">
+                        <img src="assets/images/cat code.jpg" alt="Profile of F">
                     </div>
                 </div>
                 <div class="profile-content">
@@ -182,7 +180,7 @@
                 <!-- Featured Project -->
                 <article class="project-card featured-card">
                     <div class="project-image-wrapper">
-                        <img src="github.jpg" alt="Featured Project Image" class="project-image">
+                        <img src="assets/images/github.jpg" alt="Featured Project Image" class="project-image">
                         <div class="vertical-label">PORTFOLIO / 2026</div>
                     </div>
                     <div class="project-content">
@@ -206,6 +204,7 @@
                     <a href="https://www.instagram.com/_apisitf/" target="_blank" class="contact-link">Instagram<span class="arrow">↗</span></a>
                     <a href="#" class="contact-link copy-action" data-copy="apisit.boonyakait@gmail.com">Email<span class="arrow">Copy</span></a>
                     <a href="#" class="contact-link copy-action" data-copy="apisit32844">Line<span class="arrow">Copy</span></a>
+                    <a href="#" class="contact-link copy-action" data-copy="0969313342">Phone<span class="arrow">Copy</span></a>
                 </div>
             </div>
         </section>
@@ -233,10 +232,22 @@
     <!-- Script for mobile menu -->
     <script>
         // Hamburger Menu Toggle
-        document.querySelector('.hamburger').addEventListener('click', function () {
+        const hamburger = document.querySelector('.hamburger');
+        const navWrapper = document.querySelector('.nav-wrapper');
+        const navLinks = document.querySelectorAll('.nav a');
+
+        hamburger.addEventListener('click', function () {
             this.classList.toggle('active');
-            document.querySelector('.nav-wrapper').classList.toggle('active');
+            navWrapper.classList.toggle('active');
             document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navWrapper.classList.remove('active');
+                document.body.style.overflow = '';
+            });
         });
 
         // Dark Mode Toggle
