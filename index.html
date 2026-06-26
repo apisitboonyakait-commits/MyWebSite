@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description"
         content="Personal introduction portfolio featuring luxury and editorial design aesthetics.">
     <title>Hello, I'm Apisit - Introduction</title>
@@ -28,11 +28,11 @@
         <div class="logo">MyWebsite<span>.</span></div>
         <div class="nav-wrapper">
             <nav class="nav">
-                <a href="#about">ABOUT</a>
-                <a href="#projects">EXPERIENCE</a>
-                <a href="#contact">CONTACT</a>
+                <a href="#">ABOUT</a>
+                <a href="#">EXPERIENCE</a>
+                <a href="#">CONTACT</a>
             </nav>
-            <a href="#contact" class="btn-inquire mobile-only">INQUIRE</a>
+            <a href="#" class="btn-inquire mobile-only">INQUIRE</a>
         </div>
         <div class="header-controls">
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
@@ -54,7 +54,7 @@
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
             </button>
-            <a href="#contact" class="btn-inquire desktop-only">INQUIRE</a>
+            <a href="#" class="btn-inquire desktop-only">INQUIRE</a>
             <button class="hamburger" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
@@ -66,7 +66,7 @@
     <!-- Main Content -->
     <main class="main-content">
         <!-- Text Section at Top -->
-        <section class="hero-text" id="about">
+        <section class="hero-text">
             <p class="subtitle"><span class="line"></span> EST. 2026</p>
             <h1 class="headline">Hello, <br> I am <i>F</i>.<br>Welcome to my <br>website.</h1>
             <p class="description">
@@ -77,7 +77,7 @@
 
         <!-- Image Section at Bottom -->
         <section class="hero-image">
-            <img src="profile.jpg" alt="Abstract and elegant shadow on concrete">
+            <img src="assets/images/profile.jpg" alt="Abstract and elegant shadow on concrete">
         </section>
 
         <!-- Statistics Section -->
@@ -105,7 +105,7 @@
             <div class="profile-card">
                 <div class="profile-visual">
                     <div class="profile-frame">
-                        <img src="cat code.jpg" alt="Profile of F">
+                        <img src="assets/images/cat code.jpg" alt="Profile of F">
                     </div>
                 </div>
                 <div class="profile-content">
@@ -182,7 +182,7 @@
                 <!-- Featured Project -->
                 <article class="project-card featured-card">
                     <div class="project-image-wrapper">
-                        <img src="github.jpg" alt="Featured Project Image" class="project-image">
+                        <img src="assets/images/github.jpg" alt="Featured Project Image" class="project-image">
                         <div class="vertical-label">PORTFOLIO / 2026</div>
                     </div>
                     <div class="project-content">
@@ -204,8 +204,8 @@
                 </div>
                 <div class="contact-links">
                     <a href="https://www.instagram.com/_apisitf/" target="_blank" class="contact-link">Instagram<span class="arrow">↗</span></a>
-                    <div class="contact-link non-clickable" style="text-transform: none;">apisit.boonyakait@gmail.com</div>
-                    <div class="contact-link non-clickable" style="text-transform: none;">Line : apisit32844</div>
+                    <a href="#" class="contact-link copy-action" data-copy="apisit.boonyakait@gmail.com">Email<span class="arrow">Copy</span></a>
+                    <a href="#" class="contact-link copy-action" data-copy="apisit32844">Line<span class="arrow">Copy</span></a>
                 </div>
             </div>
         </section>
@@ -226,6 +226,9 @@
         <div class="line"></div>
         <div class="line"></div>
     </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notification"></div>
 
     <!-- Script for mobile menu -->
     <script>
@@ -250,8 +253,8 @@
         }
 
         themeToggle.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
                 document.documentElement.removeAttribute('data-theme');
                 localStorage.setItem('theme', 'light');
                 sunIcon.style.display = 'block';
@@ -262,6 +265,30 @@
                 sunIcon.style.display = 'none';
                 moonIcon.style.display = 'block';
             }
+        });
+
+        // Copy to Clipboard & Toast Logic
+        const copyActions = document.querySelectorAll('.copy-action');
+        const toast = document.getElementById('toast');
+
+        function showToast(message) {
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        copyActions.forEach(action => {
+            action.addEventListener('click', (e) => {
+                e.preventDefault();
+                const textToCopy = action.getAttribute('data-copy');
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showToast('Copied to clipboard');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            });
         });
     </script>
 </body>
